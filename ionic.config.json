@@ -1,0 +1,7 @@
+{
+  "name": "bikesec",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
