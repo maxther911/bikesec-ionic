@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { FormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -12,6 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // Importación de los servicios
 import { LoginService } from '../service/login.service';
 import { BikeService } from '../service/bikes.service';
+import { RobberyService } from '../service/robbery.service';
+
 // Firestore Import
 import { AngularFireModule } from '@angular/fire'
 import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore'
@@ -19,6 +22,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from './credentials';
 // GoogleMaps
 import { GoogleMaps } from '@ionic-native/google-maps';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
@@ -48,6 +53,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     AngularFirestore,
     BikeService,
     LoginService,
+    RobberyService,
     GoogleMaps
   ]
 })

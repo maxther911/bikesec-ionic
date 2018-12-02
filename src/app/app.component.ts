@@ -13,7 +13,7 @@ import { AddRobberyPage } from '../pages/add-robbery/add-robbery';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
@@ -31,6 +31,7 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.rootPage = HomePage
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();

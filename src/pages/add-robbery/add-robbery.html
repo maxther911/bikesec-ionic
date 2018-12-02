@@ -1,17 +1,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>add-robbery</ion-title>
+    <ion-title>Datos del Hurto</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
-  <label>Seleccione lugar del hurto</label>
-  <div id="map_canvas">
-    <button ion-button (click)="onButtonClick($event)">start-demo</button>
+<ion-content #popoverContent padding class="popover-page">
+
+    <h3>Ionic GoogleMaps Demo</h3>
+    <p>
+    This is a demo application of <b>@ionic-native/google-maps</b> plugin.
+    </p>
+    <div id="map_canvas">
+      <button ion-button (click)="onButtonClick($event)">Demo</button>
   </div>
+
   <form (ngSubmit)="addRobbery()">
     <div>
       <label>Consultar por usuario</label>
@@ -46,41 +51,44 @@
       </div>
     </div>
     <div>
-      <h6>Datos de la bicicleta</h6>
-      <div class="input-field col s12 l12">
-        <input type="text" id="serial" name="serial" placeholder="Serial" [(ngModel)]="bike.serial" />
-        <label for="serial">Serial</label>
-      </div>
-      <div class="input-field col s12 l12">
-        <input type="text" id="marca" name="marca" placeholder="Ingrese marca" [(ngModel)]="bike.marca" />
-        <label for="marca">marca</label>
-      </div>
-      <div>
-        <input type="text" id="color" name="color" placeholder="Ingrese color" [(ngModel)]="bike.color" />
-        <label class="active" for="color">Color</label>
-      </div>
-      <div >
-        <input type="text" name="fechaHurto" id="fechaHurto" placeholder="Seleccione fecha" [(ngModel)]="fecha" />
-        <label class="active" for="fechaHurto">Fecha de Hurto</label>
-      </div>
-      <div>
-        <input type="text" name="horaHurto" id="horaHurto" placeholder="Seleccione hora del hurto" [(ngModel)]="hora" />
-        <label class="active" for="horaHurto">Hora del hurto</label>
-      </div>
-      <div>
-        <textarea id="descripcion" name="descripcion" class="materialize-textarea" [(ngModel)]="bike.description"
-          placeholder="Descripcion de la bici"></textarea>
-        <label for="descripcion">Descripcion</label>
-      </div>
-    </div>
-    <div class="col s12 l12 m12 center ">
-      <input class="btn amber darken-4 white-text waves-effect waves-light" type="submit" value="Confirmar" />
+
+      <ion-title>
+        Datos del hurto
+      </ion-title>
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Serial</ion-label>
+          <ion-input type="text" [(ngModel)]="bike.serial" name="bikeSerial"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Marca</ion-label>
+          <ion-input type="text" [(ngModel)]="bike.marca" name="bikeMarca"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Color</ion-label>
+          <ion-input type="text" [(ngModel)]="bike.color" name="bikeColor"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Fecha Hurto</ion-label>
+          <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="bike.fecha" name="robberyFecha"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hora Hurto</ion-label>
+          <ion-datetime displayFormat="h:mm:A" pickerFormat="h mm A" [(ngModel)]="bike.hora" name="robberyHora"></ion-datetime>
+        </ion-item>
+        <button ion-button full submit>
+          <ion-icon name="save"></ion-icon>
+          Confirmar
+        </button>
+      </ion-list>
     </div>
   </form>
+
   <ng-template #noBikes>
-    <div id="no-bikes-user">
-      <h5>No hay bicicletas para mostrar.</h5>
-    </div>
+    <ion-list>
+      <ion-title>No hay bicicletas para mostrar.</ion-title>
+    </ion-list>
   </ng-template>
 
 </ion-content>
