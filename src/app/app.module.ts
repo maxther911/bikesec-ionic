@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AddRobberyPage } from '../pages/add-robbery/add-robbery';
+import { ToastController } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,6 +23,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from './credentials';
 // GoogleMaps
 import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -49,12 +51,14 @@ import { GoogleMaps } from '@ionic-native/google-maps';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFirestore,
     BikeService,
     LoginService,
     RobberyService,
-    GoogleMaps
+    Geolocation,
+    GoogleMaps,
+    ToastController,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
 export class AppModule { }

@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-// librerias de google maps
+import { Component, OnInit } from '@angular/core';
+import { NavController } from 'ionic-angular';
+
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
   Marker,
   GoogleMapsAnimation,
   MyLocation
@@ -24,7 +27,8 @@ import { ToastController } from 'ionic-angular';
   templateUrl: 'add-robbery.html',
 })
 export class AddRobberyPage {
-  private map: GoogleMap;
+
+  map: GoogleMap;
   public lat: number = 4.643548;
   public lng: number = -74.1621109;
   public zoom: number = 16;
@@ -50,10 +54,10 @@ export class AddRobberyPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     private bikeService: BikeService,
     private robberyService: RobberyService,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    private googleMaps: GoogleMaps) {
   }
 
   ionViewDidLoad() {
@@ -61,27 +65,65 @@ export class AddRobberyPage {
   }
 
   loadMap() {
-    // Create a map after the view is loaded.
-    // (platform is already ready in app.component.ts)
-    this.map = GoogleMaps.create('map_canvas', {
+
+    let mapOptions: GoogleMapOptions = {
+      controls: {
+        'compass': false,
+        'myLocationButton': true,
+        'myLocation': true,  
+        'indoorPicker': true,
+        'zoom': true,         
+        'mapToolbar': true    
+      },
       camera: {
         target: {
-          lat: 43.0741704,
+          lat: 43.0741904,
           lng: -89.3809802
         },
         zoom: 18,
         tilt: 30
       }
-    });
+    };
+
+    this.map = this.googleMaps.create('map_canvas', mapOptions);
+
+    // Wait the MAP_READY before using any methods.
+    this.map.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
+        // Now you can use all methods safely.
+        this.getPosition();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
   }
 
-  onButtonClick() {
+  getPosition(): void {
+    this.map.getMyLocation()
+      .then(response => {
+        this.map.moveCamera({
+          target: response.latLng
+        });
+        this.map.addMarker({
+          title: 'My Position',
+          icon: 'blue',
+          animation: 'DROP',
+          position: response.latLng
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  onButtonClick(event: any) {
     this.map.clear();
 
     // Get the location of you
     this.map.getMyLocation()
       .then((location: MyLocation) => {
-        console.log(JSON.stringify(location, null ,2));
+        console.log(JSON.stringify(location, null, 2));
 
         // Move the map camera to the location with animation
         this.map.animateCamera({
@@ -89,23 +131,23 @@ export class AddRobberyPage {
           zoom: 17,
           tilt: 30
         })
-        .then(() => {
-          // add a marker
-          let marker: Marker = this.map.addMarkerSync({
-            title: '@ionic-native/google-maps plugin!',
-            snippet: 'This plugin is awesome!',
-            position: location.latLng,
-            animation: GoogleMapsAnimation.BOUNCE
-          });
+          .then(() => {
+            // add a marker
+            let marker: Marker = this.map.addMarkerSync({
+              title: '@ionic-native/google-maps plugin!',
+              snippet: 'This plugin is awesome!',
+              position: location.latLng,
+              animation: GoogleMapsAnimation.BOUNCE
+            });
 
-          // show the infoWindow
-          marker.showInfoWindow();
+            // show the infoWindow
+            marker.showInfoWindow();
 
-          // If clicked it, display the alert
-          marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-            this.showToast('clicked!');
+            // If clicked it, display the alert
+            marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+              this.showToast('clicked!');
+            });
           });
-        });
       });
   }
 
@@ -117,7 +159,7 @@ export class AddRobberyPage {
     });
 
     toast.present(toast);
-}
+  }
 
   addRobbery() {
     console.log("Nada")
