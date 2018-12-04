@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, AfterViewInit } from '@angular/core';
+import { NavController, LoadingController, IonicPage } from 'ionic-angular';
+
 
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
   GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
   Marker,
   GoogleMapsAnimation,
   MyLocation
@@ -22,15 +21,14 @@ import { RobberyService } from '../../service/robbery.service';
 // 
 import { ToastController } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-add-robbery',
   templateUrl: 'add-robbery.html',
 })
-export class AddRobberyPage {
+export class AddRobberyPage implements AfterViewInit {
 
   map: GoogleMap;
-  public lat: number = 4.643548;
-  public lng: number = -74.1621109;
   public zoom: number = 16;
   public activateFindUsersBike: boolean = true;
   public user: string = '';
@@ -38,7 +36,7 @@ export class AddRobberyPage {
   private robbery: Robbery;
   public hora: string;
   public fecha: string;
-  private coords: Coords;
+  public coords: Coords;
 
   bike: Bike = {
     id: '',
@@ -57,7 +55,9 @@ export class AddRobberyPage {
     private bikeService: BikeService,
     private robberyService: RobberyService,
     public toastCtrl: ToastController,
-    private googleMaps: GoogleMaps) {
+    private googleMaps: GoogleMaps,
+    public loadingCtrl: LoadingController,
+    ) {
   }
 
   ionViewDidLoad() {
@@ -70,10 +70,10 @@ export class AddRobberyPage {
       controls: {
         'compass': false,
         'myLocationButton': true,
-        'myLocation': true,  
+        'myLocation': true,
         'indoorPicker': true,
-        'zoom': true,         
-        'mapToolbar': true    
+        'zoom': true,
+        'mapToolbar': true
       },
       camera: {
         target: {
@@ -87,14 +87,13 @@ export class AddRobberyPage {
 
     this.map = this.googleMaps.create('map_canvas', mapOptions);
 
-    // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
-        // Now you can use all methods safely.
         this.getPosition();
       })
       .catch(error => {
         console.log(error);
+        this.showToast(error);
       });
 
   }
@@ -105,6 +104,10 @@ export class AddRobberyPage {
         this.map.moveCamera({
           target: response.latLng
         });
+        this.coords = {
+          lat: response.latLng.lat,
+          lng: response.latLng.lng
+        }
         this.map.addMarker({
           title: 'My Position',
           icon: 'blue',
@@ -128,14 +131,14 @@ export class AddRobberyPage {
         // Move the map camera to the location with animation
         this.map.animateCamera({
           target: location.latLng,
-          zoom: 17,
+          zoom: 16,
           tilt: 30
         })
           .then(() => {
             // add a marker
             let marker: Marker = this.map.addMarkerSync({
-              title: '@ionic-native/google-maps plugin!',
-              snippet: 'This plugin is awesome!',
+              title: 'Ubicación de hurto',
+              snippet: 'Verifique su ubicación para reportar el hurto',
               position: location.latLng,
               animation: GoogleMapsAnimation.BOUNCE
             });
@@ -145,7 +148,7 @@ export class AddRobberyPage {
 
             // If clicked it, display the alert
             marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-              this.showToast('clicked!');
+              this.showToast('Sus coordenadas: ' + location.latLng);
             });
           });
       });
@@ -157,21 +160,38 @@ export class AddRobberyPage {
       duration: 2000,
       position: 'middle'
     });
-
     toast.present(toast);
   }
 
   addRobbery() {
-    console.log("Nada")
+    this.showToast('Mi ubicacion: ' + this.coords.lat + ' : ' + this.coords.lng)
     this.robberyService.addRobbery(this.robbery)
   }
 
   findBikeUsers() {
-    console.log("buscando.....")
+    this.presentLoading("Buscando Bicicletas del usuario.")
+    this.showToast('Buscando: ' + this.user);
+    this.activateFindUsersBike = false;
     this.bikeService.getBikesByUsersLike(this.user).subscribe(
       bikes => {
         this.bikes = bikes;
       });
   }
+
+  presentLoading(message : string) {
+    const loader = this.loadingCtrl.create({
+      content: message,
+      duration: 3000
+    });
+    loader.present();
+  }
+
+  ngAfterViewInit() {
+    if (this.bikes == null)
+      this.activateFindUsersBike = false;
+      
+  }
+
+  
 
 }

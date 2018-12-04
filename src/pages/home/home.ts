@@ -1,23 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { LoginService } from '../../service/login.service';
-import { ListPage } from '../list/list';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  @ViewChild("myNav") nav : NavController
 
-  constructor(public navCtrl: NavController, private loginService : LoginService) {
+  constructor(
+    public navCtrl: NavController) {
 
   }
 
-  goToListBikes(){
-    this.nav.push(ListPage)
+  goToLoginPage() {
+    this.navCtrl.push(LoginPage)
   }
-
-
 
 }

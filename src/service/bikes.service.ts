@@ -7,7 +7,7 @@ import {
 
 import { Observable } from 'rxjs';
 import { Bike } from '../models/bike';
-import { LoginService } from './login.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class BikeService {
@@ -32,7 +32,7 @@ export class BikeService {
   bikesUser: any;
   bikeDoc: AngularFirestoreDocument<Bike>;
 
-  constructor(public afs: AngularFirestore, public login: LoginService) {
+  constructor(public afs: AngularFirestore, public auth: AuthService) {
     this.bikesCollection = this.afs.collection('bikes');
     this.bikes = this.bikesCollection.valueChanges();
   }
@@ -42,14 +42,20 @@ export class BikeService {
   }
 
   getBikesByUID() {
-    this.bike.uid = this.login.getUserDetails.uid;
+    this.auth.user.subscribe (user => {
+      console.log(user)
+      this.bike.uid = user.uid
+    })
     this.bikesCollection = this.afs.collection('bikes', ref => ref.where('uid', '==', this.bike.uid))
     this.bikesUser = this.bikesCollection.valueChanges()
     return this.bikesUser;
   }
 
   getBikesByUsers() {
-    this.bike.nickName = this.login.getUserDetails.email.split('@')[0];
+    this.auth.user.subscribe (user => {
+      this.bike.nickName = user.email.split('@')[0];
+    })
+   
     this.bikesUser = this.afs.doc(`bikes/${this.bike.nickName}`);
     return this.bikesUser;
   }

@@ -1,61 +1,51 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { LoginService } from '../../service/login.service';
+import { Component, OnInit } from '@angular/core';
+import { NavController, NavParams, LoadingController, IonicPage } from 'ionic-angular';
+import { AuthService } from '../../service/auth.service';
 import { BikeService } from '../../service/bikes.service';
 import { Bike } from '../../models/bike';
+import { Observable } from 'rxjs';
 
+@IonicPage()
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
-export class ListPage {
+export class ListPage implements OnInit {
   selectedItem: any;
   icons: string[];
   items: Array<{ title: string, note: string, icon: string }>;
   bikes: Bike[];
+  user: Observable<firebase.User>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private loginService: LoginService,
-    private bikeService: BikeService) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
-
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-      'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
-
-    this.ngOnInit();
-  }
-
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
+    private auth: AuthService,
+    private bikeService: BikeService,
+    public loadingCtrl: LoadingController) {
   }
 
   ngOnInit() {
-    if (!this.loginService.isLoggedIn()) {
+    this.presentLoading('Cargando Bicicletas, por favor espere');
+    if (!this.auth.authenticated) {
       this.bikeService.getBikes().subscribe(bikes => {
         this.bikes = bikes;
       });
     } else {
+      
+      this.user = this.auth.user;
       this.bikeService.getBikesByUID().subscribe(
         bikes => {
           this.bikes = bikes;
         });
     }
+  }
 
+  presentLoading(message : string) {
+    const loader = this.loadingCtrl.create({
+      content: message,
+      duration: 3000
+    });
+    loader.present();
   }
 }

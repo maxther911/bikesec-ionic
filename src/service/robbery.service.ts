@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Robbery } from '../models/robbery';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { LoginService } from './login.service';
+import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class RobberyService {
   robberyDoc: AngularFirestoreDocument<Robbery>;
   private user : string;
 
-  constructor(public afs:AngularFirestore, private login : LoginService) {
+  constructor(public afs:AngularFirestore, private auth : AuthService) {
     this.robberyCollection = this.afs.collection('robbery');
     this.robbery = this.robberyCollection.valueChanges();
   }
@@ -25,7 +25,11 @@ export class RobberyService {
   }
 
   getRobberysByUID() {
-    this.robberyUser.uid = this.login.getUserDetails.uid;
+
+    this.auth.user.subscribe (user => {
+      this.robberyUser.uid = user.uid;
+    })
+
     console.log('User: '+ this.user) ;
     
     this.robberyCollection = this.afs.collection('robbery', ref => ref.where('uid', '==', this.robberyUser.uid ) )
@@ -36,7 +40,12 @@ export class RobberyService {
   }
 
   getRobberysByUsers() {
-    this.robberyUser.nickName = this.login.getUserDetails.email.split('@')[0];
+
+    this.auth.user.subscribe (user => {
+      this.robberyUser.nickName = user.email.split('@')[0];
+    })
+
+    
     console.log('User: '+ this.user) ;
     this.robberyDoc = this.afs.doc(`robbery/${this.robberyUser.nickName}`);
     console.log(console.info, this.robberyUser);

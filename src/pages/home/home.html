@@ -1,18 +1,28 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Bikesec</ion-title>
   </ion-navbar>
+  <ion-title>Bikesec</ion-title>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
+    Bienvenido al sistema de gestión para combatir el hurto de Bicicletas en la localidad de puente aranda.
+  </p>
+  <br>
+  <h3>Que hacer?</h3>
+  <p>En está app podras registrar, consultar bicicleta por serial, y ver tus registradas; nuestro proposito es que
+    antes de comprar una
+    bicicleta veas su estado y si el estado es hurtado puedas contactar con el propietario e indicarle donde está, con
+    ello queremos que
+    las autoridades puedan devolverla al usuario.
+  </p>
+  <h3>Notificaciones de hurto en línea</h3>
+  <p>En este modulo se podrá registrar el hurto de una bicicleta por medio de la dirección o permitiendo el acceso a
+    ubicación, para que el registro se haga desde allí; en ese momento queremos que el sistema notifique a los ciclo
+    usuarios cercanos y cuadrante de las
+    autoridades para que tengan una reaccion rápida y sea posible la recuperación con el apoyo de los ciclo usuarios.
   </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <button ion-button full primary (click)="goToLoginPage()">Ingresar</button>
 </ion-content>

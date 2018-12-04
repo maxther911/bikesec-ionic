@@ -1,13 +1,14 @@
 <ion-header>
-
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Datos del Hurto</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content #popoverContent padding class="popover-page">
+<ion-content #popoverContent class="popover-page">
 
   <div id="map_canvas">
     <button ion-button (click)="onButtonClick($event)">Demo</button>
@@ -16,9 +17,9 @@
     <div>
       <div>
         <ion-item>
-            <ion-icon name="search"></ion-icon>
+          <ion-icon name="search"></ion-icon>
           <ion-label floating>Consultar Usuario</ion-label>
-          <ion-input aria-placeholder="ingrese Usuario" id="au" type="text" [(ngModel)]="user" name="user"></ion-input>
+          <ion-input aria-placeholder="ingrese Usuario" id="autoComplete" type="text" [(ngModel)]="user" name="user" (keyUp)="findBikeUsers()" (change)="findBikeUsers()"></ion-input>
         </ion-item>
         <div id="listBikesUsers">
           <div *ngIf="bikes?.length > 0;else noBikes" id="bikesUser">
@@ -70,7 +71,7 @@
         <ion-label>Hora Hurto</ion-label>
         <ion-datetime displayFormat="h:mm:A" pickerFormat="h mm A" [(ngModel)]="bike.hora" name="robberyHora"></ion-datetime>
       </ion-item>
-      <button ion-button full submit>
+      <button ion-button full submit (click)="addRobbery()">
         <ion-icon name="save"></ion-icon>
         Confirmar
       </button>
@@ -78,7 +79,7 @@
   </div>
 
   <ng-template #noBikes>
-    <ion-list>
+    <ion-list [(hidden)]="activateFindUsersBike">
       <ion-title>No hay bicicletas para mostrar.</ion-title>
     </ion-list>
   </ng-template>
