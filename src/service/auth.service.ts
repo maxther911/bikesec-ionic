@@ -5,10 +5,12 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-	public user: Observable<firebase.User>;
+	public user: Observable<firebase.User> = null;
 
 	constructor(public afAuth: AngularFireAuth) {
 		this.user = afAuth.authState;
+		console.log("Service Constructor: ")
+		console.log(this.user)
 	}
 
 	signInWithEmail(credentials) {

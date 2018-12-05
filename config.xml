@@ -90,7 +90,7 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAKzuvYA5n2fzARWWlWVeE3VW27tBaMoZw" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyDtSaU0DftOvmHfzHEPuFBAd7SEGcsTag4" />
     </plugin>
-    <allow-navigation href="http://192.168.7.23:8100" sessionid="cb1867fd" />
+    <allow-navigation href="http://192.168.7.23:8100" sessionid="d013a806" />
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
 </widget>

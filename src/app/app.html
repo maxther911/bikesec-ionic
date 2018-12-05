@@ -15,6 +15,9 @@
             <p>
               {{user.email}}
             </p>
+            <button menuClose (click)="logout()" ion-button color="warning" full>
+                <ion-icon name="log-out"></ion-icon> Logout
+              </button>
           </ion-card-content>
       
           <ion-item>
@@ -27,9 +30,6 @@
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
-      </button>
-      <button menuClose (click)="logout()" ion-button color="danger" round>
-        <ion-icon name="log-out"></ion-icon> Logout
       </button>
     </ion-list>
   </ion-content>

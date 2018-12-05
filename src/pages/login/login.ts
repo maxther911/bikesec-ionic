@@ -28,10 +28,13 @@ export class LoginPage {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
     });
-    if (auth.authenticated) {
-      console.log("Ligin 37: Existe session Activa")
-      this.navCtrl.push(ListPage)
-    }
+    auth.user.subscribe(user => {
+      if (user) {
+        console.log("Login 37: Existe session Activa")
+        // I could store user in localstorage, but I'd like to see an All Firebase solution
+        this.navCtrl.push(ListPage)
+      } 
+    })
   }
 
   login() {

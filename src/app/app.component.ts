@@ -47,14 +47,16 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      if (this.auth.authenticated) {
-        this.user = this.auth.user;
-        this.rootPage = ListPage;
-      } else {
-        this.rootPage = HomePage;
-      }
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+
+      this.auth.user.subscribe(user => {
+        if (user) {
+          console.log("Login 37: Existe session Activa")
+          this.user = this.auth.user;
+          this.rootPage = ListPage;
+        } else {
+          this.rootPage = HomePage;
+        }
+      })
     });
   }
 

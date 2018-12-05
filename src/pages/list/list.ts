@@ -27,17 +27,21 @@ export class ListPage implements OnInit {
 
   ngOnInit() {
     this.presentLoading('Cargando Bicicletas, por favor espere');
-    if (!this.auth.authenticated) {
-      this.bikeService.getBikes().subscribe(bikes => {
-        this.bikes = bikes;
-      });
-    } else {
-      this.user = this.auth.user;
-      this.bikeService.getBikesByUID().subscribe(
-        bikes => {
+    console.log("ngOnInit ListPage")
+    this.auth.user.subscribe(user => {
+      if (user) {
+        console.log("Login 37: Existe session Activa")
+        this.user = this.auth.user;
+        this.bikeService.getBikesByUID().subscribe(
+          bikes => {
+            this.bikes = bikes;
+          });
+      } else {
+        this.bikeService.getBikes().subscribe(bikes => {
           this.bikes = bikes;
         });
-    }
+      }
+    })
   }
 
   presentLoading(message : string) {
