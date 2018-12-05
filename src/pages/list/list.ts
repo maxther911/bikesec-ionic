@@ -32,7 +32,6 @@ export class ListPage implements OnInit {
         this.bikes = bikes;
       });
     } else {
-      
       this.user = this.auth.user;
       this.bikeService.getBikesByUID().subscribe(
         bikes => {

@@ -42,31 +42,31 @@ export class BikeService {
   }
 
   getBikesByUID() {
-    this.auth.user.subscribe (user => {
-      console.log(user)
-      this.bike.uid = user.uid
+    
+    this.auth.user.subscribe(userLogin => {
+      this.bike.uid = userLogin.uid;
     })
     this.bikesCollection = this.afs.collection('bikes', ref => ref.where('uid', '==', this.bike.uid))
-    this.bikesUser = this.bikesCollection.valueChanges()
-    return this.bikesUser;
+    this.bikesUsers = this.bikesCollection.valueChanges()
+    return this.bikesUsers;
   }
 
   getBikesByUsers() {
-    this.auth.user.subscribe (user => {
+    this.auth.user.subscribe(user => {
       this.bike.nickName = user.email.split('@')[0];
     })
-   
+
     this.bikesUser = this.afs.doc(`bikes/${this.bike.nickName}`);
     return this.bikesUser;
   }
 
-  getBikesByUsersLike(user : string) {
+  getBikesByUsersLike(user: string) {
     this.bikesCollection = this.afs.collection('bikes', ref => ref.where('nickName', '==', user))
     this.bikesUser = this.bikesCollection.valueChanges()
     return this.bikesUser;
   }
 
-  getBikeBySerial(serial : string) {
+  getBikeBySerial(serial: string) {
     this.bikesCollection = this.afs.collection('bikes', ref => ref.where('serial', '==', serial))
     this.bikesUser = this.bikesCollection.valueChanges()
     return this.bikesUser;

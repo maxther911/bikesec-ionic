@@ -9,6 +9,7 @@ import { AddRobberyPage } from '../pages/add-robbery/add-robbery';
 import { AddBikePage } from '../pages/add-bike/add-bike';
 import { AuthService } from '../service/auth.service';
 import { LoginPage } from '../pages/login/login';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,6 +22,7 @@ export class MyApp {
   private app;
   private platform;
   private menu: MenuController;
+  user : Observable<firebase.User>
 
   constructor(
     app: App,
@@ -45,18 +47,15 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.rootPage = HomePage
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      if (this.auth.authenticated) {
+        this.user = this.auth.user;
+        this.rootPage = ListPage;
+      } else {
+        this.rootPage = HomePage;
+      }
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
-    if (this.auth.authenticated) {
-      this.rootPage = ListPage;
-    } else {
-      this.rootPage = HomePage;
-    }
   }
 
   openPage(page) {
@@ -72,7 +71,7 @@ export class MyApp {
   }
 
   logout() {
-    console.log("Login App Component")
+    console.log("Saliendo de la session chaolin......")
     this.menu.close();
     this.auth.signOut();
     this.nav.setRoot(HomePage);

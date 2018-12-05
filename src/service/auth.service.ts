@@ -12,7 +12,6 @@ export class AuthService {
 	}
 
 	signInWithEmail(credentials) {
-		console.log('Sign in with email');
 		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
 			credentials.password);
 	}
@@ -30,7 +29,6 @@ export class AuthService {
 	}
 
 	signInWithGoogle() {
-		console.log('Sign in with google');
 		this.afAuth.auth
 			.signInWithPopup(
 				new firebase.auth.GoogleAuthProvider())
@@ -39,7 +37,6 @@ export class AuthService {
 	}
 
 	signInWithFacebook() {
-		console.log("Ingresando con facebook")
 		this.afAuth.auth
 			.signInWithPopup(
 				new firebase.auth.FacebookAuthProvider())

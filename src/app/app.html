@@ -6,9 +6,30 @@
   </ion-header>
 
   <ion-content>
+      <ion-card *ngIf="user | async as user">
+          <img src="{{user.photoURL}}"/>     
+          <ion-card-content>
+            <ion-card-title>
+              {{user.displayName}}
+            </ion-card-title>
+            <p>
+              {{user.email}}
+            </p>
+          </ion-card-content>
+      
+          <ion-item>
+            <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+            @{{ user.email.split('@')[0] }}
+            <ion-badge item-end>260k</ion-badge>
+          </ion-item>
+      
+        </ion-card>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
+      </button>
+      <button menuClose (click)="logout()" ion-button color="danger" round>
+        <ion-icon name="log-out"></ion-icon> Logout
       </button>
     </ion-list>
   </ion-content>
