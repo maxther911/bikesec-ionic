@@ -22,7 +22,7 @@ export class MyApp {
   private app;
   private platform;
   private menu: MenuController;
-  user : Observable<firebase.User>
+  user: Observable<firebase.User>
 
   constructor(
     app: App,
@@ -38,22 +38,28 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Mis Bicicletas', component: ListPage },
-      { title: 'Registrar Hurto', component: AddRobberyPage },
-      { title: 'Registrar Bicicleta', component: AddBikePage }
+      { title: 'Home', component: HomePage },
+      { title: 'Login', component: LoginPage }
     ];
 
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-
       this.auth.user.subscribe(user => {
         if (user) {
-          console.log("Login 37: Existe session Activa")
           this.user = this.auth.user;
+          this.pages = [
+            { title: 'Mis Bicicletas', component: ListPage },
+            { title: 'Registrar Hurto', component: AddRobberyPage },
+            { title: 'Registrar Bicicleta', component: AddBikePage }
+          ];
           this.rootPage = ListPage;
         } else {
+          this.pages = [
+            { title: 'Home', component: HomePage },
+            { title: 'Login', component: LoginPage }
+          ];
           this.rootPage = HomePage;
         }
       })
@@ -67,13 +73,11 @@ export class MyApp {
   }
 
   login() {
-    console.log("Login App Component")
     this.menu.close();
     this.nav.setRoot(LoginPage);
   }
 
   logout() {
-    console.log("Saliendo de la session chaolin......")
     this.menu.close();
     this.auth.signOut();
     this.nav.setRoot(HomePage);

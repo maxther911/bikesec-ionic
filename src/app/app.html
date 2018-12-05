@@ -6,27 +6,29 @@
   </ion-header>
 
   <ion-content>
-      <ion-card *ngIf="user | async as user">
-          <img src="{{user.photoURL}}"/>     
-          <ion-card-content>
-            <ion-card-title>
-              {{user.displayName}}
-            </ion-card-title>
-            <p>
-              {{user.email}}
-            </p>
-            <button menuClose (click)="logout()" ion-button color="warning" full>
-                <ion-icon name="log-out"></ion-icon> Logout
-              </button>
-          </ion-card-content>
-      
-          <ion-item>
-            <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
-            @{{ user.email.split('@')[0] }}
-            <ion-badge item-end>260k</ion-badge>
-          </ion-item>
-      
-        </ion-card>
+    <ion-card *ngIf="user | async as user">
+      <img src="{{user.photoURL}}" />
+      <ion-card-content>
+        <ion-card-title color="primary">
+          {{user.displayName}}
+        </ion-card-title>
+        <p color="light">
+          {{user.email}}
+        </p>
+        <div full text-center>
+          <button menuClose (click)="logout()" ion-button color="danger">
+            <ion-icon name="log-out"> </ion-icon> Logout
+          </button>
+        </div>
+      </ion-card-content>
+
+      <ion-item>
+        <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+        @{{ user.email.split('@')[0] }}
+        <ion-badge item-end>260k</ion-badge>
+      </ion-item>
+
+    </ion-card>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

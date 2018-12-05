@@ -5,7 +5,6 @@ import { HomePage } from '../home/home';
 import { AuthService } from '../../service/auth.service';
 import { SignupPage } from '../signup/signup';
 import { ListPage } from '../list/list';
-import { Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -30,8 +29,6 @@ export class LoginPage {
     });
     auth.user.subscribe(user => {
       if (user) {
-        console.log("Login 37: Existe session Activa")
-        // I could store user in localstorage, but I'd like to see an All Firebase solution
         this.navCtrl.push(ListPage)
       } 
     })
@@ -59,18 +56,16 @@ export class LoginPage {
   }
 
   loginWithGoogle() {
-    console.log("Ingresando con google......")
     this.auth.signInWithGoogle();
     if(this.auth.authenticated){
-      this.nav.push(ListPage)
+      this.navCtrl.push(ListPage)
     }
   }
 
   loginWithFacebook() {
-    console.log("Ingresando con facebook......")
     this.auth.signInWithFacebook();
     if (this.auth.authenticated) {
-      this.nav.push(ListPage)
+      this.navCtrl.push(ListPage)
     }
   }
 

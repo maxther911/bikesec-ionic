@@ -28,10 +28,6 @@ export class AddBikePage {
     public bikeService : BikeService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddBikePage');
-  }
-
   // Muestra mensaje en pantalla
   showToast(message: string) {
     let toast = this.toastCtrl.create({

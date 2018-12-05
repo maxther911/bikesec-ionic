@@ -9,8 +9,6 @@ export class AuthService {
 
 	constructor(public afAuth: AngularFireAuth) {
 		this.user = afAuth.authState;
-		console.log("Service Constructor: ")
-		console.log(this.user)
 	}
 
 	signInWithEmail(credentials) {

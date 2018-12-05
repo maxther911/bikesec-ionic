@@ -13,7 +13,6 @@ export class RobberyService {
 
   robberyUser : Robbery;
   robberyDoc: AngularFirestoreDocument<Robbery>;
-  private user : string;
 
   constructor(public afs:AngularFirestore, private auth : AuthService) {
     this.robberyCollection = this.afs.collection('robbery');
@@ -25,30 +24,21 @@ export class RobberyService {
   }
 
   getRobberysByUID() {
-
     this.auth.user.subscribe (user => {
       this.robberyUser.uid = user.uid;
     })
-
-    console.log('User: '+ this.user) ;
     
     this.robberyCollection = this.afs.collection('robbery', ref => ref.where('uid', '==', this.robberyUser.uid ) )
-    
     this.robberyUsers = this.robberyCollection.valueChanges()
-    console.log(this.robbery)
     return this.robberyUser; 
   }
 
   getRobberysByUsers() {
-
     this.auth.user.subscribe (user => {
       this.robberyUser.nickName = user.email.split('@')[0];
     })
 
-    
-    console.log('User: '+ this.user) ;
     this.robberyDoc = this.afs.doc(`robbery/${this.robberyUser.nickName}`);
-    console.log(console.info, this.robberyUser);
     return this.robberyUsers; 
   }
 

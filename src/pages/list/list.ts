@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { NavController, NavParams, LoadingController, IonicPage } from 'ionic-angular';
 import { AuthService } from '../../service/auth.service';
 import { BikeService } from '../../service/bikes.service';
@@ -26,11 +26,14 @@ export class ListPage implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+  
+
+  ionViewDidLoad() {
     this.presentLoading('Cargando Bicicletas, por favor espere');
-    console.log("ngOnInit ListPage")
     this.auth.user.subscribe(user => {
       if (user) {
-        console.log("Login 37: Existe session Activa")
         this.user = this.auth.user;
         this.bikeService.getBikesByUID().subscribe(
           bikes => {
@@ -44,7 +47,8 @@ export class ListPage implements OnInit {
     })
   }
 
-  presentLoading(message : string) {
+
+  presentLoading(message: string) {
     const loader = this.loadingCtrl.create({
       content: message,
       duration: 3000

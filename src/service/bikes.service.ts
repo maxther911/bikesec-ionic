@@ -14,22 +14,10 @@ export class BikeService {
   private bikesCollection: AngularFirestoreCollection<Bike>;
   bikes: Observable<Bike[]>;
   bikesUsers: Observable<Bike[]>;
+  uid: string;
   private bike: Bike = {
-    uid: '',
-    nickName: '',
-    id: '',
-    marca: '',
-    modelo: '',
-    serial: '',
-    color: '',
-    rin: '',
-    tipo: '',
-    talla: '',
-    description: '',
-    image: ''
+    uid: '', nickName: '', id: '', marca: '', modelo: '', serial: '', color: '', rin: '', tipo: '', talla: '', description: '', image: ''
   };
-
-  bikesUser: any;
   bikeDoc: AngularFirestoreDocument<Bike>;
 
   constructor(public afs: AngularFirestore, public auth: AuthService) {
@@ -42,34 +30,37 @@ export class BikeService {
   }
 
   getBikesByUID() {
-    
     this.auth.user.subscribe(userLogin => {
-      this.bike.uid = userLogin.uid;
+
+      this.bikesCollection = this.afs.collection('bikes', ref => ref.where('uid', '==', userLogin.uid))
+      this.bikesUsers = this.bikesCollection.valueChanges()
+      return this.bikesUsers;
     })
-    this.bikesCollection = this.afs.collection('bikes', ref => ref.where('uid', '==', this.bike.uid))
-    this.bikesUsers = this.bikesCollection.valueChanges()
     return this.bikesUsers;
   }
 
   getBikesByUsers() {
     this.auth.user.subscribe(user => {
       this.bike.nickName = user.email.split('@')[0];
+      this.bikesCollection = this.afs.collection('bikes', ref => ref.where('nickName', '==', this.bike.nickName))
+      this.bikesUsers = this.bikesCollection.valueChanges()
     })
-
-    this.bikesUser = this.afs.doc(`bikes/${this.bike.nickName}`);
-    return this.bikesUser;
+    return this.bikesUsers;
   }
 
-  getBikesByUsersLike(user: string) {
-    this.bikesCollection = this.afs.collection('bikes', ref => ref.where('nickName', '==', user))
-    this.bikesUser = this.bikesCollection.valueChanges()
-    return this.bikesUser;
+  getBikesByUser(userApp: string) {
+    this.auth.user.subscribe(user => {
+      this.bike.nickName = user.email.split('@')[0];
+      this.bikesCollection = this.afs.collection('bikes', ref => ref.where('nickName', '==', userApp))
+      this.bikesUsers = this.bikesCollection.valueChanges()
+    })
+    return this.bikesUsers;
   }
 
   getBikeBySerial(serial: string) {
     this.bikesCollection = this.afs.collection('bikes', ref => ref.where('serial', '==', serial))
-    this.bikesUser = this.bikesCollection.valueChanges()
-    return this.bikesUser;
+    this.bikesUsers = this.bikesCollection.valueChanges()
+    return this.bikesUsers;
   }
 
   addBike(bike: Bike) {

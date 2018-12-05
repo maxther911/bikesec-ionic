@@ -92,7 +92,6 @@ export class AddRobberyPage implements AfterViewInit {
         this.getPosition();
       })
       .catch(error => {
-        console.log(error);
         this.showToast(error);
       });
 
@@ -126,27 +125,19 @@ export class AddRobberyPage implements AfterViewInit {
     // Get the location of you
     this.map.getMyLocation()
       .then((location: MyLocation) => {
-        console.log(JSON.stringify(location, null, 2));
-
-        // Move the map camera to the location with animation
         this.map.animateCamera({
           target: location.latLng,
           zoom: 16,
           tilt: 30
         })
           .then(() => {
-            // add a marker
             let marker: Marker = this.map.addMarkerSync({
               title: 'Ubicación de hurto',
               snippet: 'Verifique su ubicación para reportar el hurto',
               position: location.latLng,
               animation: GoogleMapsAnimation.BOUNCE
             });
-
-            // show the infoWindow
             marker.showInfoWindow();
-
-            // If clicked it, display the alert
             marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
               this.showToast('Sus coordenadas: ' + location.latLng);
             });
@@ -164,7 +155,6 @@ export class AddRobberyPage implements AfterViewInit {
   }
 
   addRobbery() {
-    this.showToast('Mi ubicacion: ' + this.coords.lat + ' : ' + this.coords.lng)
     this.robberyService.addRobbery(this.robbery)
   }
 
@@ -172,7 +162,7 @@ export class AddRobberyPage implements AfterViewInit {
     this.presentLoading("Buscando Bicicletas del usuario.")
     this.showToast('Buscando: ' + this.user);
     this.activateFindUsersBike = false;
-    this.bikeService.getBikesByUsersLike(this.user).subscribe(
+    this.bikeService.getBikesByUser(this.user).subscribe(
       bikes => {
         this.bikes = bikes;
       });
@@ -192,6 +182,7 @@ export class AddRobberyPage implements AfterViewInit {
       
   }
 
-  
-
+  selectBike(bike : Bike){
+    this.showToast("Se ha seleccionado la bicicleta: " + bike.marca);
+  }
 }

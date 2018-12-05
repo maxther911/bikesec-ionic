@@ -7,14 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Log in</ion-title>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      <ion-title>Log in</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-<h2>Ingresar con E-Mail</h2>
+  <h2>Ingresar con E-Mail</h2>
   <form (ngSubmit)="login()" [formGroup]="loginForm">
     <ion-list inset>
 
