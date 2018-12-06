@@ -10,6 +10,7 @@ import { AddBikePage} from '../pages/add-bike/add-bike';
 import { AddRobberyPage } from '../pages/add-robbery/add-robbery';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { AlertWindowPage } from '../pages/alert-window/alert-window';
 
 
 // messages Toast
@@ -31,7 +32,6 @@ import { firebaseConfig } from './credentials';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -40,7 +40,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     AddRobberyPage,
     AddBikePage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    AlertWindowPage  
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     AddRobberyPage,
     AddBikePage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    AlertWindowPage
   ],
   providers: [
     StatusBar,

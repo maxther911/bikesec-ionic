@@ -14,6 +14,7 @@ export class BikeService {
   private bikesCollection: AngularFirestoreCollection<Bike>;
   bikes: Observable<Bike[]>;
   bikesUsers: Observable<Bike[]>;
+  bikesUsersRobb: Observable<Bike[]>;
   uid: string;
   private bike: Bike = {
     uid: '', nickName: '', id: '', marca: '', modelo: '', serial: '', color: '', rin: '', tipo: '', talla: '', description: '', image: ''
@@ -31,12 +32,9 @@ export class BikeService {
 
   getBikesByUID() {
     this.auth.user.subscribe(userLogin => {
-
       this.bikesCollection = this.afs.collection('bikes', ref => ref.where('uid', '==', userLogin.uid))
       this.bikesUsers = this.bikesCollection.valueChanges()
-      return this.bikesUsers;
     })
-    return this.bikesUsers;
   }
 
   getBikesByUsers() {
@@ -49,18 +47,13 @@ export class BikeService {
   }
 
   getBikesByUser(userApp: string) {
-    this.auth.user.subscribe(user => {
-      this.bike.nickName = user.email.split('@')[0];
       this.bikesCollection = this.afs.collection('bikes', ref => ref.where('nickName', '==', userApp))
-      this.bikesUsers = this.bikesCollection.valueChanges()
-    })
-    return this.bikesUsers;
+      this.bikesUsersRobb = this.bikesCollection.valueChanges()
   }
 
   getBikeBySerial(serial: string) {
     this.bikesCollection = this.afs.collection('bikes', ref => ref.where('serial', '==', serial))
     this.bikesUsers = this.bikesCollection.valueChanges()
-    return this.bikesUsers;
   }
 
   addBike(bike: Bike) {

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -11,37 +11,31 @@
 <ion-content #popoverContent class="popover-page">
 
   <div id="map_canvas">
-    <button ion-button (click)="onButtonClick($event)">Demo</button>
+    <button ion-button (click)="onButtonClick($event)">Ir a mi ubicación</button>
   </div>
   <div>
     <div>
       <div>
         <ion-item>
-          <ion-icon name="search"></ion-icon>
-          <ion-label floating>Consultar Usuario</ion-label>
-          <ion-input aria-placeholder="ingrese Usuario" id="autoComplete" type="text" [(ngModel)]="user" name="user"
-            (keyUp)="findBikeUsers()" (change)="findBikeUsers()"></ion-input>
+          <label>Consultar bicicletas por usuario:</label>
+          <ion-searchbar [(ngModel)]="user" (ionInput)="findBikeUsers($event)"></ion-searchbar>
         </ion-item>
-        <div id="listBikesUsers">
-          <div *ngIf="bikes?.length > 0;else noBikes" id="bikesUser">
-            <div *ngFor="let bike of bikes" class="col l6 s12 m6">
-              <ion-card>
-                <img src="{{bike.image}}" />
-                <ion-card-content>
-                  <ion-card-title>
-                    <p>Marca: {{ bike.marca }}</p>
-                  </ion-card-title>
-                  <p>Modelo: {{ bike.modelo }}</p>
-                  <p>Color: {{ bike.color }}</p>
-                </ion-card-content>
-                <ion-item (click)="selectBike(bike)">
-                  <ion-icon name="bicycle" item-start large></ion-icon>
-                  <h2>Seleccionar</h2>
-                  <p>Click para sereccionar está bicicleta.</p>
-                </ion-item>
-              </ion-card>
-            </div>
-          </div>
+        <div id="listBikesUsers" [(hidden)]="activateFindUsersBike">
+            <ion-card *ngFor="let bike of bikeService.bikesUsersRobb | async">
+              <img [src]="bike.image" style="object-fit: cover;" />
+              <ion-card-content>
+                <ion-card-title>
+                  <p>Marca: {{ bike.marca }}</p>
+                </ion-card-title>
+                <p>Modelo: {{ bike.modelo }}</p>
+                <p>Color: {{ bike.color }}</p>
+              </ion-card-content>
+              <ion-item (click)="selectBike(bike)">
+                <ion-icon name="bicycle" item-start large></ion-icon>
+                <h2>Seleccionar</h2>
+                <p>Click para sereccionar está bicicleta.</p>
+              </ion-item>
+            </ion-card>
         </div>
       </div>
     </div>

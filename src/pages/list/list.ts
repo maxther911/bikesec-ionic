@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, IonicPage } from 'ionic-angular';
 import { AuthService } from '../../service/auth.service';
 import { BikeService } from '../../service/bikes.service';
@@ -10,12 +10,13 @@ import { Observable } from 'rxjs';
   selector: 'page-list',
   templateUrl: 'list.html'
 })
-export class ListPage implements OnInit {
+export class ListPage {
   selectedItem: any;
   icons: string[];
   items: Array<{ title: string, note: string, icon: string }>;
   bikes: Bike[];
   user: Observable<firebase.User>;
+  public bikesUsers: Observable<Bike[]>
 
   constructor(
     public navCtrl: NavController,
@@ -23,22 +24,11 @@ export class ListPage implements OnInit {
     private auth: AuthService,
     private bikeService: BikeService,
     public loadingCtrl: LoadingController) {
-  }
-
-  ngOnInit() {
-
-  }
-  
-
-  ionViewDidLoad() {
-    this.presentLoading('Cargando Bicicletas, por favor espere');
+      this.presentLoading('Cargando Bicicletas, por favor espere');
     this.auth.user.subscribe(user => {
       if (user) {
         this.user = this.auth.user;
-        this.bikeService.getBikesByUID().subscribe(
-          bikes => {
-            this.bikes = bikes;
-          });
+          this.bikeService.getBikesByUID();
       } else {
         this.bikeService.getBikes().subscribe(bikes => {
           this.bikes = bikes;
@@ -46,7 +36,6 @@ export class ListPage implements OnInit {
       }
     })
   }
-
 
   presentLoading(message: string) {
     const loader = this.loadingCtrl.create({

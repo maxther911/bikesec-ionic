@@ -10,6 +10,7 @@ import { AddBikePage } from '../pages/add-bike/add-bike';
 import { AuthService } from '../service/auth.service';
 import { LoginPage } from '../pages/login/login';
 import { Observable } from 'rxjs';
+import { AlertWindowPage } from '../pages/alert-window/alert-window';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,7 +40,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Login', component: LoginPage },
+      { title: 'Zona de hurtos', component: AlertWindowPage }
     ];
 
   }
@@ -52,13 +54,15 @@ export class MyApp {
           this.pages = [
             { title: 'Mis Bicicletas', component: ListPage },
             { title: 'Registrar Hurto', component: AddRobberyPage },
-            { title: 'Registrar Bicicleta', component: AddBikePage }
+            { title: 'Registrar Bicicleta', component: AddBikePage },
+            { title: 'Zona de hurtos', component: AlertWindowPage }
           ];
           this.rootPage = ListPage;
         } else {
           this.pages = [
             { title: 'Home', component: HomePage },
-            { title: 'Login', component: LoginPage }
+            { title: 'Login', component: LoginPage },
+            { title: 'Zona de hurtos', component: AlertWindowPage }
           ];
           this.rootPage = HomePage;
         }

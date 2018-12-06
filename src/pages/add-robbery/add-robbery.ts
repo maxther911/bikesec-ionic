@@ -20,6 +20,9 @@ import { BikeService } from '../../service/bikes.service';
 import { RobberyService } from '../../service/robbery.service';
 // 
 import { ToastController } from 'ionic-angular';
+import { Observable } from 'rxjs';
+import { ListPage } from '../list/list';
+import { AlertWindowPage } from '../alert-window/alert-window';
 
 @IonicPage()
 @Component({
@@ -33,6 +36,7 @@ export class AddRobberyPage implements AfterViewInit {
   public activateFindUsersBike: boolean = true;
   public user: string = '';
   public bikes: Bike[];
+  userBikes: Observable<Bike[]>;
   private robbery: Robbery;
   public hora: string;
   public fecha: string;
@@ -57,7 +61,7 @@ export class AddRobberyPage implements AfterViewInit {
     public toastCtrl: ToastController,
     private googleMaps: GoogleMaps,
     public loadingCtrl: LoadingController,
-    ) {
+  ) {
   }
 
   ionViewDidLoad() {
@@ -108,10 +112,10 @@ export class AddRobberyPage implements AfterViewInit {
           lng: response.latLng.lng
         }
         this.map.addMarker({
-          title: 'My Position',
-          icon: 'blue',
-          animation: 'DROP',
-          position: response.latLng
+          title: 'Ubicación de hurto',
+          snippet: 'Verifique su ubicación para reportar el hurto',
+          position: response.latLng,
+          animation: GoogleMapsAnimation.BOUNCE
         });
       })
       .catch(error => {
@@ -156,19 +160,18 @@ export class AddRobberyPage implements AfterViewInit {
 
   addRobbery() {
     this.robberyService.addRobbery(this.robbery)
+    this.showToast("Se ha registrado correctamente el hurto.");
+    this.navCtrl.push(AlertWindowPage);
   }
 
-  findBikeUsers() {
-    this.presentLoading("Buscando Bicicletas del usuario.")
-    this.showToast('Buscando: ' + this.user);
-    this.activateFindUsersBike = false;
-    this.bikeService.getBikesByUser(this.user).subscribe(
-      bikes => {
-        this.bikes = bikes;
-      });
+  findBikeUsers(ev: any) {
+    const userSearch = ev.target.value;
+    if (userSearch) {
+      this.bikeService.getBikesByUser(userSearch);
+    }
   }
 
-  presentLoading(message : string) {
+  presentLoading(message: string) {
     const loader = this.loadingCtrl.create({
       content: message,
       duration: 3000
@@ -179,10 +182,11 @@ export class AddRobberyPage implements AfterViewInit {
   ngAfterViewInit() {
     if (this.bikes == null)
       this.activateFindUsersBike = false;
-      
   }
 
-  selectBike(bike : Bike){
-    this.showToast("Se ha seleccionado la bicicleta: " + bike.marca);
+  selectBike(bike: Bike) {
+    //this.showToast("Se ha seleccionado la bicicleta: " + bike.marca);
+    this.bike = bike;
+    this.activateFindUsersBike = true;
   }
 }

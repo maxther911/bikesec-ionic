@@ -16,4 +16,24 @@ page-add-robbery {
       .action-sheet-destructive ion-icon {
         color: #757575;
       }
+
+      .scroll-zoom-wrapper {
+        white-space: nowrap;
+    }
+    
+    ion-card {
+        width: 100% !important;
+        display: inline-block;
+        max-height: 100% !important;
+    }
+
+    ion-card img{
+      width: 30%;
+      float: left;    
+    }
+
+    ion-card card-content{
+        width: 65%;
+        float: right;    
+    }
 }
