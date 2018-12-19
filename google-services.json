@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "831545385398",
+    "firebase_url": "https://bikesec-a1b13.firebaseio.com",
+    "project_id": "bikesec-a1b13",
+    "storage_bucket": "bikesec-a1b13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831545385398:android:92996b4d5ea43054",
+        "android_client_info": {
+          "package_name": "net.mrsistemas.bike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831545385398-mcdsuonfbrsra4tq6qi7qptc7am0h7gl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.mrsistemas.bike",
+            "certificate_hash": "9936fa6cb87a122dce9091bd69e525270deb536c"
+          }
+        },
+        {
+          "client_id": "831545385398-chj1uqm25oi5j93l10gif3ifuicqived.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9D-75bCJmVmlIPpfgGtDeIPtXkvSJZ0Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831545385398-chj1uqm25oi5j93l10gif3ifuicqived.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "831545385398-0qt629sugb04t6t4nq2i17aauj2gi95i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.mrsistemas.bike"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

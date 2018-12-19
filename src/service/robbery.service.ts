@@ -17,9 +17,7 @@ export class RobberyService {
   constructor(public afs:AngularFirestore, private auth : AuthService) {
     this.robberyCollection = this.afs.collection('robbery');
     this.robbery = this.robberyCollection.valueChanges();
-    this.robbery.subscribe(robbery => {
-      console.log(robbery)
-      console.log("Bicicleta")
+/*    this.robbery.subscribe(robbery => {
       robbery.forEach(element => {
         console.log(element.bike);
         console.log(element.coords);
@@ -27,7 +25,7 @@ export class RobberyService {
 
     })
     console.log("Hurtos Registrados: ")
-    console.log(this.robbery)
+    console.log(this.robbery)*/
   }
 
   getRobberys() {

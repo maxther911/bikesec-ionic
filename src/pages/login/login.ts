@@ -5,8 +5,8 @@ import { HomePage } from '../home/home';
 import { AuthService } from '../../service/auth.service';
 import { SignupPage } from '../signup/signup';
 import { ListPage } from '../list/list';
+import { MessageService } from '../../service/message.service';
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -19,6 +19,7 @@ export class LoginPage {
   constructor(
     private navCtrl: NavController,
     private auth: AuthService,
+    private message: MessageService,
     nav: Nav,
     fb: FormBuilder
   ) {
@@ -30,7 +31,7 @@ export class LoginPage {
     auth.user.subscribe(user => {
       if (user) {
         this.navCtrl.push(ListPage)
-      } 
+      }
     })
   }
 
@@ -57,9 +58,6 @@ export class LoginPage {
 
   loginWithGoogle() {
     this.auth.signInWithGoogle();
-    if(this.auth.authenticated){
-      this.navCtrl.push(ListPage)
-    }
   }
 
   loginWithFacebook() {

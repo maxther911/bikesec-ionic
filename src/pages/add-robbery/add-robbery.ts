@@ -24,7 +24,6 @@ import { Observable } from 'rxjs';
 import { ListPage } from '../list/list';
 import { AlertWindowPage } from '../alert-window/alert-window';
 
-@IonicPage()
 @Component({
   selector: 'page-add-robbery',
   templateUrl: 'add-robbery.html',
@@ -54,9 +53,10 @@ export class AddRobberyPage implements AfterViewInit {
     description: ''
   };
 
+
   constructor(
     public navCtrl: NavController,
-    private bikeService: BikeService,
+    public bikeService: BikeService,
     private robberyService: RobberyService,
     public toastCtrl: ToastController,
     private googleMaps: GoogleMaps,

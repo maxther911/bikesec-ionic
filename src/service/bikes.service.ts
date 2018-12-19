@@ -31,8 +31,8 @@ export class BikeService {
   }
 
   getBikesByUID() {
-    this.auth.user.subscribe(userLogin => {
-      this.bikesCollection = this.afs.collection('bikes', ref => ref.where('uid', '==', userLogin.uid))
+    this.auth.user.subscribe(user => {
+      this.bikesCollection = this.afs.collection('bikes', ref => ref.where('uid', '==', user.uid))
       this.bikesUsers = this.bikesCollection.valueChanges()
     })
   }

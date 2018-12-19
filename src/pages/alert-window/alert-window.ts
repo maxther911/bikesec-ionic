@@ -1,14 +1,11 @@
+import { Bike } from './../../models/bike';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import {
   GoogleMaps,
   GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
   Marker,
-  GoogleMapsAnimation,
-  MyLocation,
   ILatLng,
   Circle,
   Spherical
@@ -24,7 +21,6 @@ import { RobberyService } from '../../service/robbery.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-alert-window',
   templateUrl: 'alert-window.html',
@@ -40,7 +36,7 @@ export class AlertWindowPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private bikeService: BikeService,
+    public bikeService: BikeService,
     private geolocation: Geolocation,
     private robberyService: RobberyService,
     public loadingCtrl: LoadingController,
@@ -52,7 +48,7 @@ export class AlertWindowPage {
   }
 
   loadMap() {
-    let coords : Coords;
+    let coords : Coords = {"lat": 4.6486259, "lng": -74.101417 };
     this.geolocation.getCurrentPosition().then((resp) => {
       coords = {
         lng: resp.coords.latitude,
@@ -113,5 +109,9 @@ export class AlertWindowPage {
       position: 'middle'
     });
     toast.present(toast);
+  }
+
+  selectBike(bike: Bike){
+    
   }
 }

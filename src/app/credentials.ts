@@ -1,5 +1,5 @@
 export var firebaseConfig = {
-    apiKey: "AIzaSyDlhSv5h5eie0HVDXho6C7oBkmr-eCezcE",
+    apiKey: "AIzaSyAI0I--unSiaDa3wdCjw6JglVn9Qwz4Wk8",
     authDomain: "bikesec-a1b13.firebaseapp.com",
     databaseURL: "https://bikesec-a1b13.firebaseio.com",
     projectId: "bikesec-a1b13",

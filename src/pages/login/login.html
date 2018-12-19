@@ -6,29 +6,26 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-      <ion-title>Log in</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Log in</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h2>Ingresar con E-Mail</h2>
+  <h2 text-center>Sign-in with E-Mail and password </h2>
   <form (ngSubmit)="login()" [formGroup]="loginForm">
     <ion-list inset>
-
       <ion-item>
         <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
       </ion-item>
-
       <ion-item>
         <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
       </ion-item>
-
     </ion-list>
 
     <div padding-horizontal>
@@ -41,25 +38,22 @@
           If you're a new user, please sign up.
         </p>
       </div>
+      <br>
 
       <ion-list>
-
-        <button ion-button icon-left block clear (click)="loginWithGoogle()">
+        <button ion-button icon-left block clear (tap)="loginWithGoogle()">
           <ion-icon name="logo-google"></ion-icon>
           Log in with Google
         </button>
-        <button ion-button icon-left block clear (click)="loginWithFacebook()">
+        <button ion-button icon-left block clear (tap)="loginWithFacebook()">
           <ion-icon name="logo-facebook"></ion-icon>
           Log in with Facebook
         </button>
-
-        <button ion-button icon-left block clear (click)="signup()">
+        <button ion-button icon-left block clear (tap)="signup()">
           <ion-icon name="person-add"></ion-icon>
           Sign up
         </button>
       </ion-list>
     </div>
   </form>
-
-
 </ion-content>

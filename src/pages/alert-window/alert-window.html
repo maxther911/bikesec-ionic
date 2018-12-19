@@ -1,26 +1,29 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Hurtos Cercanos</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <div id="map_canvas"></div>
   <div id="listBikesUsers" [(hidden)]="activateFindUsersBike">
-      <ion-card *ngFor="let bike of bikeService.bikesUsersRobb | async">
-        <img [src]="bike.image" style="object-fit: cover;" />
-        <ion-card-content>
-          <ion-card-title>
-            <p>Marca: {{ bike.marca }}</p>
-          </ion-card-title>
-          <p>Modelo: {{ bike.modelo }}</p>
-          <p>Color: {{ bike.color }}</p>
-        </ion-card-content>
-        <ion-item (click)="selectBike(bike)">
-          <ion-icon name="bicycle" item-start large></ion-icon>
-          <h2>Seleccionar</h2>
-          <p>Click para sereccionar está bicicleta.</p>
-        </ion-item>
-      </ion-card>
+    <ion-card *ngFor="let bike of bikeService.bikesUsersRobb | async">
+      <img [src]="bike.image" style="object-fit: cover;" />
+      <ion-card-content>
+        <ion-card-title>
+          <p>Marca: {{ bike.marca }}</p>
+        </ion-card-title>
+        <p>Modelo: {{ bike.modelo }}</p>
+        <p>Color: {{ bike.color }}</p>
+      </ion-card-content>
+      <ion-item (click)="selectBike(bike)">
+        <ion-icon name="bicycle" item-start large></ion-icon>
+        <h2>Seleccionar</h2>
+        <p>Click para sereccionar está bicicleta.</p>
+      </ion-item>
+    </ion-card>
   </div>
 </ion-content>

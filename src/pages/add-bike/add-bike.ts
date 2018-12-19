@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { Bike } from '../../models/bike';
 import { BikeService } from '../../service/bikes.service';
 
-@IonicPage()
 @Component({
   selector: 'page-add-bike',
   templateUrl: 'add-bike.html',

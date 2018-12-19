@@ -21,31 +21,28 @@
           <ion-searchbar [(ngModel)]="user" (ionInput)="findBikeUsers($event)"></ion-searchbar>
         </ion-item>
         <div id="listBikesUsers" [(hidden)]="activateFindUsersBike">
-            <ion-card *ngFor="let bike of bikeService.bikesUsersRobb | async">
-              <img [src]="bike.image" style="object-fit: cover;" />
-              <ion-card-content>
-                <ion-card-title>
-                  <p>Marca: {{ bike.marca }}</p>
-                </ion-card-title>
-                <p>Modelo: {{ bike.modelo }}</p>
-                <p>Color: {{ bike.color }}</p>
-              </ion-card-content>
-              <ion-item (click)="selectBike(bike)">
-                <ion-icon name="bicycle" item-start large></ion-icon>
-                <h2>Seleccionar</h2>
-                <p>Click para sereccionar está bicicleta.</p>
-              </ion-item>
-            </ion-card>
+          <ion-card *ngFor="let bike of bikeService.bikesUsersRobb | async">
+            <img [src]="bike.image" style="object-fit: cover;" />
+            <ion-card-content>
+              <ion-card-title>
+                <p>Marca: {{ bike.marca }}</p>
+              </ion-card-title>
+              <p>Modelo: {{ bike.modelo }}</p>
+              <p>Color: {{ bike.color }}</p>
+            </ion-card-content>
+            <ion-item (click)="selectBike(bike)">
+              <ion-icon name="bicycle" item-start large></ion-icon>
+              <h2>Seleccionar</h2>
+              <p>Click para sereccionar está bicicleta.</p>
+            </ion-item>
+          </ion-card>
         </div>
       </div>
     </div>
   </div>
-  <div>
-
-    <ion-title>
-      Datos del hurto
-    </ion-title>
-    <ion-list>
+  <div text-center>
+    <ion-title>Datos de la bici</ion-title>
+    <ion-list text-justify>
       <ion-item>
         <ion-label floating>Serial</ion-label>
         <ion-input type="text" [(ngModel)]="bike.serial" name="bikeSerial"></ion-input>
@@ -61,11 +58,11 @@
       </ion-item>
       <ion-item>
         <ion-label>Fecha Hurto</ion-label>
-        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="bike.fecha" name="robberyFecha"></ion-datetime>
+        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="fecha" name="robberyFecha"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>Hora Hurto</ion-label>
-        <ion-datetime displayFormat="h:mm:A" pickerFormat="h mm A" [(ngModel)]="bike.hora" name="robberyHora"></ion-datetime>
+        <ion-datetime displayFormat="h:mm:A" pickerFormat="h mm A" [(ngModel)]="hora" name="robberyHora"></ion-datetime>
       </ion-item>
       <button ion-button full submit (click)="addRobbery()">
         <ion-icon name="save"></ion-icon>

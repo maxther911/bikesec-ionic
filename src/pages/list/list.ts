@@ -5,7 +5,6 @@ import { BikeService } from '../../service/bikes.service';
 import { Bike } from '../../models/bike';
 import { Observable } from 'rxjs';
 
-@IonicPage()
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
@@ -22,7 +21,7 @@ export class ListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private auth: AuthService,
-    private bikeService: BikeService,
+    public bikeService: BikeService,
     public loadingCtrl: LoadingController) {
       this.presentLoading('Cargando Bicicletas, por favor espere');
     this.auth.user.subscribe(user => {

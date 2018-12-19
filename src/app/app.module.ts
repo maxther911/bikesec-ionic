@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { FormsModule } from '@angular/forms';
+import { GooglePlus } from '@ionic-native/google-plus'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -22,6 +23,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from '../service/auth.service';
 import { BikeService } from '../service/bikes.service';
 import { RobberyService } from '../service/robbery.service';
+import { MessageService } from '../service/message.service';
 
 // Firestore Import
 import { AngularFireModule } from '@angular/fire'
@@ -31,6 +33,7 @@ import { firebaseConfig } from './credentials';
 // GoogleMaps
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,7 @@ import { Geolocation } from '@ionic-native/geolocation';
   imports: [
     BrowserModule,
     FormsModule,
+    ComponentsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
@@ -70,8 +74,10 @@ import { Geolocation } from '@ionic-native/geolocation';
     BikeService,
     AuthService,
     RobberyService,
+    MessageService,
     Geolocation,
     GoogleMaps,
+    GooglePlus,
     ToastController,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
