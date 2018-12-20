@@ -59,7 +59,7 @@ export class AlertWindowPage {
     });
     let center: ILatLng = { "lat": coords.lat, "lng": coords.lng };
 
-    let radius = 300;  // radius (meter)
+    let radius = -150;  // radius (meter)
 
     // Calculate the positions
     let positions: ILatLng[] = [0, 90, 180, 270].map((degree: number) => {

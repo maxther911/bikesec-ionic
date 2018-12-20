@@ -7,12 +7,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div  text-center><ion-img class="width" src="./assets/imgs/logo.png"></ion-img></div>
-  <p>
-    Bienvenido al sistema de gestión para combatir el hurto de Bicicletas en la localidad de puente aranda.
+<ion-content padding text-justify>
+  <div text-center ><ion-img height="216px" width="312px" src="./assets/imgs/logo.png"></ion-img></div>
+  <h2>
+    Te damos la bienvenida al sistema de gestión de Bicicletas.
+  </h2>
+  <p>Mediante este sistema se pretende controlar el hurto de bicicletas en la localidad de puente Aranda, en la ciudad de 
+    Bogotá, para usuario nuevos se deben seguir los siguientes pasos.
   </p>
-  <br>
   <h3>Que hacer?</h3>
   <p>En está app podras registrar, consultar bicicleta por serial, y ver tus registradas; nuestro proposito es que
     antes de comprar una
@@ -23,9 +25,8 @@
   <h3>Notificaciones de hurto en línea</h3>
   <p>En este modulo se podrá registrar el hurto de una bicicleta por medio de la dirección o permitiendo el acceso a
     ubicación, para que el registro se haga desde allí; en ese momento queremos que el sistema notifique a los ciclo
-    usuarios cercanos y cuadrante de las
-    autoridades para que tengan una reaccion rápida y sea posible la recuperación con el apoyo de los ciclo usuarios.
+    usuarios cercanos, y al cuadrante de las autoridades para que tengan una reaccion rápida y sea posible la 
+    recuperación de la bicicleta con el apoyo de los Bici-Usuarios.
   </p>
-
-  <button ion-button full primary (click)="goToLoginPage()">Ingresar</button>
+  <button ion-button full (click)="goToLoginPage()" color="danger">Ingresar</button>
 </ion-content>
